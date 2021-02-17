@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidenav" hasBackdrop="true">
+    <mat-sidenav mode="side" class="sidenav__side" #sidenav>
+        <div class="sidenav__container" fxFlex fxLayout="column">
+
+            <mat-toolbar fxLayoutAlign="space-between center">
+                <button mat-icon-button>
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-icon-button (click)="sidenav.close()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar>
+
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="mainnav" class="sidenav__content">
+
+        <mat-toolbar color="primary" fxLayoutAlign.gt-sm="space-between center">
+            <button mat-icon-button fxHide.gt-sm (click)="sidenav.open()"><mat-icon>menu</mat-icon></button>
+
+            <app-logo routerLink="/"></app-logo>
+
+            <mat-nav-list class="mainnav__nav" fxHide fxShow.gt-sm fxLayout="row" fxLayoutAlign="space-between center">
+                <!--<a mat-list-item class="mainnav__item mainnav__item--disabled" disabled>Usługi</a>
+                <a mat-list-item class="mainnav__item mainnav__item--disabled" disabled>Firma</a>-->
+                <a mat-list-item class="mainnav__item"><mat-icon>account_circle</mat-icon></a>
+            </mat-nav-list>
+        </mat-toolbar>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

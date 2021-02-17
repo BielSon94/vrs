@@ -1,0 +1,43 @@
+.sidenav {
+    width: 100%;
+    height: 100%;
+
+    &__side {
+        //background: red;
+        width: 75%;
+        max-width: 256px;
+
+        @media screen and (min-width: 600px) {
+
+        }
+
+        @media screen and (min-width: 960px) {
+            display: none;
+        }
+    }
+
+    &__content {
+        //background: yellow;
+    }
+}
+
+// =======================================================
+
+.mainnav {
+
+    &__nav {
+        padding: 0;
+    }
+
+    &__item {
+        color: #242424;
+
+        @media screen and (min-width: 960px) {
+            color: #fff;
+        }
+
+        &--disabled {
+            background: transparent;
+        }
+    }
+}
