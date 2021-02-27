@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ReservationService } from '@features/reservation/service/reservation.service';
 import { Reservation } from 'src/app/api/model/reservation.model';
+import { ReservationEditComponent } from '../reservation-edit/reservation-edit.component';
 
 const RESERVATION_DATA: Reservation[] = [
   {
     reservation_id: 1,
-    email: 'bielson94@gmail.com'
+    fromCity: "Rzeszów",
+    toCity: "Przemyśl"
   },
   {
     reservation_id: 2,
-    email: 'example@onet.pl'
-  },
-  {
-    reservation_id: 3,
-    email: 'pysia@wp.pl'
+    fromCity: "Przemyśl",
+    toCity: "Kraków"
   }
 ];
 
@@ -25,19 +26,25 @@ const RESERVATION_DATA: Reservation[] = [
 })
 
 
+
 export class ReservationListComponent implements OnInit {
 
   dataSource: any;
-  displayedColumns: string[] = ['id', 'email' ,'menu'];
+  displayedColumns: string[] = ['reservation_id', 'fromCity', 'toCity' ,'menu'];
   selectedRow: Reservation;
 
-  constructor() {
+  constructor(
+    private dialog: MatDialog,
+    private reservationService: ReservationService
+  ) {
 
     this.selectedRow = {
       reservation_id: 0,
-      email: ''
+      fromCity: "",
+      toCity: ""
     }
 
+    this.dataSource = new MatTableDataSource<Reservation>(RESERVATION_DATA);
   }
 
   onRowClicked(row: any) {
@@ -46,8 +53,14 @@ export class ReservationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Reservation>(RESERVATION_DATA);
 
+  }
+
+  openEditReservationModal() {
+    this.dialog.open(ReservationEditComponent, {
+      data: this.selectedRow,
+      disableClose: true
+    })
   }
 
 }

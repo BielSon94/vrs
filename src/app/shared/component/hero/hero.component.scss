@@ -1,0 +1,16 @@
+.hero {
+    width: 100%;
+    height: 100vh;
+    padding-top: 56px;
+    display: block;
+    background: url('../../../../assets/hero/hero_vertical.jpg') no-repeat center center;
+    background-size: cover;
+
+    @media screen and (min-width: 600px) {
+        padding-top: 64px;
+    }
+
+    @media screen and (min-width: 920px) {
+        background: url('../../../../assets/hero/hero_horizontal.jpg');
+    }
+}

@@ -5,6 +5,7 @@ import { SharedModule } from '@shared/shared.module';
 import { LayoutComponent } from './component/layout/layout.component';
 import { ReservationListComponent } from './component/reservation-list/reservation-list.component';
 import { ReservationEditComponent } from './component/reservation-edit/reservation-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +13,11 @@ import { ReservationEditComponent } from './component/reservation-edit/reservati
   imports: [
     CommonModule,
     ReservationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule
   ]
 })
+
+
 export class ReservationModule { }

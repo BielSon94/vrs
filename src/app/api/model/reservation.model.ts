@@ -1,5 +1,7 @@
 export interface Reservation {
 
+    id?: number;
     reservation_id: number;
-    email: string;
+    fromCity: string;
+    toCity: string;
 }

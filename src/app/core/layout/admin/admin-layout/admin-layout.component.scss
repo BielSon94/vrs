@@ -1,0 +1,26 @@
+.sidenav {
+    width: 100%;
+    height: 100%;
+
+    &__side {
+        min-width: 250px;
+    }
+
+    &__container {
+
+    }
+
+}
+
+.accountbox {
+
+    &__item {
+        color: #fff;
+
+        & a {
+          color: inherit;
+        }
+
+    }
+
+}

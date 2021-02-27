@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ReservationListComponent } from '@features/reservation/component/reservation-list/reservation-list.component';
+import { UsersListComponent } from '@features/users/component/users-list/users-list.component';
 import { PageNotFoundComponent } from '@shared/component/page-not-found/page-not-found.component';
+import { AuthGuard } from './guard/auth.guard';
 import { AdminLayoutComponent } from './layout/admin/admin-layout/admin-layout.component';
 import { ClientLayoutComponent } from './layout/client/client-layout/client-layout.component';
 
@@ -13,11 +16,19 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    pathMatch: 'full'
+    children: [
+      { path: 'reservations', component: ReservationListComponent },
+      { path: 'users', component: UsersListComponent }
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'reservation',
-    loadChildren: () => import('@features/reservation/reservations.module').then(m => m.ReservationModule),
+    loadChildren: () => import('@features/reservation/reservations.module').then(m => m.ReservationModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('@features/auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '404-page-not-found',
