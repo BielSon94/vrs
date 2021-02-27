@@ -111,7 +111,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCardModule,
     HeroComponent,
     LogoComponent,
-    NavbarComponent
+    NavbarComponent,
+    MatInputModule,
   ]
 })
 
