@@ -7,7 +7,7 @@
         <mat-list fxLayout="row" [style.padding-top]="0">
             <mat-divider vertical="true"></mat-divider>
             <mat-list-item class="accountbox__item">
-                <a mat-list-item *ngIf="isAuthenticated == true" [matMenuTriggerFor]="accountMenu"><mat-icon>account_circle</mat-icon></a>
+                <a mat-list-item [matMenuTriggerFor]="accountMenu"><mat-icon>account_circle</mat-icon></a>
             </mat-list-item>
 
             <mat-list-item class="accountbox__item">

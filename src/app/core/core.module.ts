@@ -8,6 +8,8 @@ import { ReservationModule } from '@features/reservation/reservations.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../api/interceptor/jwt.interceptor';
+import { UsersModule } from '@features/users/users.module';
+import { UserProfileModule } from '@features/user-profile/user-profile.module';
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import { JwtInterceptor } from '../api/interceptor/jwt.interceptor';
     CoreRoutingModule,
     ReservationModule,
     AuthModule,
+    UsersModule,
+    UserProfileModule,
     SharedModule,
   ],
   providers: [

@@ -16,19 +16,17 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
-
+  getUsers(): Observable<User> {
     return this.http.get<any>(`${this.userUrl}`).pipe(
-      map((user: User[]) => user)
+      map((user: User) => user)
     )
 
   }
 
-
-  findAll(): Observable<User> {
-    return this.http.get<User>(`${this.userUrl}`).pipe(
-      tap(user => console.log(user)),
+  getUser(id: number): Observable<User> {
+    return this.http.get<any>(`${this.userUrl}/${id}`).pipe(
       map((user: User) => user)
-      )
-    }
+    )
+  }
+
   }

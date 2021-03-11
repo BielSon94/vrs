@@ -16,13 +16,14 @@ export class AdminLayoutComponent implements OnInit {
     firstName: "Łukasz"
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
   logout() {
-
+    this.authService.logout();
   }
 
 }

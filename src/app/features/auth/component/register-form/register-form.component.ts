@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@features/auth/service/auth.service';
@@ -36,12 +36,10 @@ export class RegisterFormComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private breakepointObserver: BreakpointObserver
-  ) {
-    this.buildForm();
-   }
+  ) {}
 
   ngOnInit(): void {
-
+    this.buildForm();
   }
 
   isMobile = this.breakepointObserver.observe([
@@ -79,4 +77,5 @@ export class RegisterFormComponent implements OnInit {
       map(user => this.router.navigate(['auth/login']))
     ).subscribe();
   }
+
 }

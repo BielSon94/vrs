@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsersService } from '@features/users/service/users.service';
+import { map } from 'rxjs/operators';
 import { User } from 'src/app/api/model/user.model';
 
 const USER_DATA: User[] = [
   {
-    id: 1
+    id: 1,
+    email: "ee@ee.pl"
   },
   {
-    id: 2
+    id: 2,
+    email: "ee@eeee.pl"
   }
 ];
 
@@ -22,19 +24,17 @@ const USER_DATA: User[] = [
 
 export class UsersListComponent implements OnInit {
 
-  data: any
-  displayedColumns: string[] = ['id'];
+  dataSource: any;
+  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'birthDate', 'menu'];
 
   constructor(
     private usersService: UsersService
   ) {
-
-
-
+    this.initDataSource();
   }
 
   ngOnInit(): void {
-    this.data = new MatTableDataSource<User>(USER_DATA);
+
   }
 
   /*initDataSource(): any {
@@ -44,5 +44,15 @@ export class UsersListComponent implements OnInit {
     ).subscribe();
     return user;
   }*/
+
+  initDataSource() {
+    this.usersService.getUsers().pipe(
+      map((user: User) => this.dataSource = user)
+    ).subscribe();
+  }
+
+  reservationViewDetails() {
+
+  }
 
 }

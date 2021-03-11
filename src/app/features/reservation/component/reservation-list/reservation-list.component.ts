@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReservationService } from '@features/reservation/service/reservation.service';
@@ -44,7 +44,7 @@ export class ReservationListComponent implements OnInit {
       toCity: ""
     }
 
-    this.dataSource = new MatTableDataSource<Reservation>(RESERVATION_DATA);
+
   }
 
   onRowClicked(row: any) {
@@ -53,7 +53,7 @@ export class ReservationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.dataSource = new MatTableDataSource<Reservation>(RESERVATION_DATA);
   }
 
   openEditReservationModal() {

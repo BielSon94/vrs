@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReservationListComponent } from '@features/reservation/component/reservation-list/reservation-list.component';
+import { UserProfileComponent } from '@features/user-profile/component/user-profile/user-profile.component';
 import { UsersListComponent } from '@features/users/component/users-list/users-list.component';
 import { PageNotFoundComponent } from '@shared/component/page-not-found/page-not-found.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -23,12 +24,16 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'profile/:id',
+    component: UserProfileComponent
+  },
+  {
     path: 'reservation',
     loadChildren: () => import('@features/reservation/reservations.module').then(m => m.ReservationModule)
   },
   {
     path: 'auth',
-    loadChildren: () => import('@features/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('@features/auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: '404-page-not-found',

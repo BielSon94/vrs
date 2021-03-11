@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { LoginForm } from '../model/login.model';
 import { map, tap } from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
@@ -39,7 +39,6 @@ export class AuthService {
   login(loginForm: LoginForm) {
     return this.http.post<any>(`${this.authUrl}/login`, { email: loginForm.email, password: loginForm.password }, { withCredentials: true }).pipe(
       map((token) => {
-        console.log(token);
         localStorage.setItem(JWT_NAME, token.accessToken);
         return token;
       })
@@ -52,7 +51,7 @@ export class AuthService {
     )
   }
 
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     const token = localStorage.getItem(JWT_NAME);
     return !this.jwtHelper.isTokenExpired(token!);
   }

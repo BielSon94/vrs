@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class LoginFormComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
   message: string = "";
   hide = true;
 
@@ -20,6 +20,12 @@ export class LoginFormComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
+
+
+
+  }
+
+  ngOnInit(): void {
 
     this.loginForm = new FormGroup({
       email: new FormControl('', [
@@ -31,10 +37,6 @@ export class LoginFormComponent implements OnInit {
         Validators.minLength(6)
       ])
     });
-
-  }
-
-  ngOnInit(): void {
 
   }
 

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { RegisterFormComponent } from '@features/auth/component/register-form/register-form.component';
+import { AuthService } from '@features/auth/service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -14,9 +18,17 @@ export class RegisterComponent implements OnInit {
     register: "Zarejestruj"
   }
 
-  constructor() { }
+  constructor(private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isLogged();
   }
 
+  isLogged(): void {
+    if(this.authService.isAuthenticated() == true) {
+      this.router.navigate(['/']);
+    } else
+      this.router.navigate(['auth/register']);
+  }
 }
