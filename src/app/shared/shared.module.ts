@@ -46,7 +46,7 @@ import { LogoComponent } from './component/logo/logo.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { HeroComponent } from './component/hero/hero.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatOptionModule } from '@angular/material/core';
 
 //===========================//
 
@@ -90,6 +90,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    MatOptionModule,
     OverlayModule,
     PortalModule,
     FlexLayoutModule
@@ -113,6 +114,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     LogoComponent,
     NavbarComponent,
     MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSnackBarModule,
+    MatAutocompleteModule
   ]
 })
 

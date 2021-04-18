@@ -29,4 +29,21 @@ export class UsersService {
     )
   }
 
+  createUser(user: User): Observable<any> {
+    return this.http.post(`${this.userUrl}`, user).pipe(
+
+    )
+  }
+
+  updateUser(id: number, user: User): Observable<any> {
+    return this.http.patch(`${this.userUrl}/${id}`, user).pipe(
+
+    )
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.userUrl}/${id}`).pipe(
+
+    )
+  }
   }

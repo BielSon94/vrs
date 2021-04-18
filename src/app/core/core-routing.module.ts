@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReservationListComponent } from '@features/reservation/component/reservation-list/reservation-list.component';
+import { RoutesListComponent } from '@features/routes/component/routes-list/routes-list.component';
+import { StopsListComponent } from '@features/stops/component/stops-list/stops-list.component';
 import { UserProfileComponent } from '@features/user-profile/component/user-profile/user-profile.component';
 import { UsersListComponent } from '@features/users/component/users-list/users-list.component';
 import { PageNotFoundComponent } from '@shared/component/page-not-found/page-not-found.component';
 import { AuthGuard } from './guard/auth.guard';
+import { DriverGuard } from './guard/driver.guard';
 import { AdminLayoutComponent } from './layout/admin/admin-layout/admin-layout.component';
 import { ClientLayoutComponent } from './layout/client/client-layout/client-layout.component';
 
@@ -19,21 +22,40 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       { path: 'reservations', component: ReservationListComponent },
-      { path: 'users', component: UsersListComponent }
+      { path: 'users', component: UsersListComponent },
+      { path: 'stops', component: StopsListComponent },
+      { path: 'routes', component: RoutesListComponent }
     ],
     canActivate: [AuthGuard]
   },
   {
-    path: 'profile/:id',
-    component: UserProfileComponent
+    path: 'profile',
+    component: UserProfileComponent,
+    //canActivate: [AuthGuard]
   },
   {
     path: 'reservation',
-    loadChildren: () => import('@features/reservation/reservations.module').then(m => m.ReservationModule)
+    loadChildren: () => import('@features/reservation/reservations.module').then(m => m.ReservationModule),
+    //canActivate: [AuthGuard],
   },
   {
     path: 'auth',
     loadChildren: () => import('@features/auth/auth.module').then(m => m.AuthModule),
+  },
+  {
+    path: 'stops',
+    loadChildren: () => import('@features/stops/stops.module').then(m => m.StopsModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'routes',
+    loadChildren: () => import('@features/routes/routes.module').then(m => m.RoutesModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'driver',
+    loadChildren: () => import('@features/driver/driver.module').then(m => m.DriverModule),
+    canActivate: [DriverGuard],
   },
   {
     path: '404-page-not-found',

@@ -1,20 +1,22 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@features/auth/service/auth.service';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
   message: string = "";
   hide = true;
+  //private subscription!: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -40,12 +42,19 @@ export class LoginFormComponent implements OnInit {
 
   }
 
-  onSubmit() {
+  ngOnDestroy(): void {
+    //this.subscription.unsubscribe();
+  }
+
+  /*onSubmit() {
     if(this.loginForm.invalid) {
       return console.error();
     }
     this.authService.login(this.loginForm.value).pipe(
-      map(token => this.router.navigate(['/']))
+      tap(res => {
+        console.log(res);
+      }),
+      map(res => res)//token => this.router.navigate(['/']))
     ).subscribe({
       error: (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -53,6 +62,21 @@ export class LoginFormComponent implements OnInit {
         }
       }
     });
-  }
+  }*/
 
+  onSubmit() {
+    if(this.loginForm.invalid) {
+      return console.error();
+    }
+    this.authService.login(this.loginForm.value).subscribe({
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.message = error.error.message;
+        }
+      },
+      next: (res) => {
+        this.router.navigate(['/']);
+      }
+    });
+  }
 }

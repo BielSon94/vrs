@@ -1,18 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from '@features/users/service/users.service';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/api/model/user.model';
-
-const USER_DATA: User[] = [
-  {
-    id: 1,
-    email: "ee@ee.pl"
-  },
-  {
-    id: 2,
-    email: "ee@eeee.pl"
-  }
-];
+import { AddUserComponent } from '../add-user/add-user.component';
 
 
 @Component({
@@ -25,16 +16,34 @@ const USER_DATA: User[] = [
 export class UsersListComponent implements OnInit {
 
   dataSource: any;
-  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'birthDate', 'menu'];
+  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'birthDate', 'role', 'menu'];
 
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private dialog: MatDialog
   ) {
-    this.initDataSource();
   }
 
   ngOnInit(): void {
+    this.initDataSource();
+  }
 
+  openModal(user = {}) {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      minWidth: '400px',
+      minHeight: '600px',
+      hasBackdrop: true,
+      data: { title: 'Dodaj nowego użytkownika', user}
+    });
+  }
+
+  onDelete(id: number) {
+    if (window.confirm('Na pewno chcesz usunąc użytkownika?')) {
+      this.usersService.deleteUser(id).subscribe((res) => {
+        this.initDataSource();
+        window.alert("Użytkownik usunięty pomyślnie");
+      });
+    }
   }
 
   /*initDataSource(): any {
@@ -49,10 +58,6 @@ export class UsersListComponent implements OnInit {
     this.usersService.getUsers().pipe(
       map((user: User) => this.dataSource = user)
     ).subscribe();
-  }
-
-  reservationViewDetails() {
-
   }
 
 }

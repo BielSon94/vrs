@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { ReservationService } from '@features/reservation/service/reservation.service';
-import { Reservation } from 'src/app/api/model/reservation.model';
+import { pipe } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Reservation, ReservationStatus } from 'src/app/api/model/reservation.model';
 import { ReservationEditComponent } from '../reservation-edit/reservation-edit.component';
 
-const RESERVATION_DATA: Reservation[] = [
+/*const RESERVATION_DATA: Reservation[] = [
   {
     reservation_id: 1,
     fromCity: "Rzeszów",
@@ -16,7 +19,13 @@ const RESERVATION_DATA: Reservation[] = [
     fromCity: "Przemyśl",
     toCity: "Kraków"
   }
-];
+];*/
+
+export interface ReservationResponse {
+  message: string;
+  reservations: Array<Reservation>;
+}
+
 
 
 @Component({
@@ -26,22 +35,31 @@ const RESERVATION_DATA: Reservation[] = [
 })
 
 
-
 export class ReservationListComponent implements OnInit {
 
   dataSource: any;
-  displayedColumns: string[] = ['reservation_id', 'fromCity', 'toCity' ,'menu'];
+  displayedColumns: string[] = ['id', 'from', 'to', 'status', 'user.firstName', 'user.lastName','menu'];
   selectedRow: Reservation;
+
+
+  newMessage: string = "";
+  reservationSource: any;
 
   constructor(
     private dialog: MatDialog,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router
   ) {
 
     this.selectedRow = {
-      reservation_id: 0,
-      fromCity: "",
-      toCity: ""
+      id: "",
+      from: "",
+      to: "",
+      status: ReservationStatus.NEW,
+      user: {
+        firstName: '',
+        lastName: '',
+      }
     }
 
 
@@ -53,14 +71,35 @@ export class ReservationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Reservation>(RESERVATION_DATA);
+    //this.dataSource = new MatTableDataSource<Reservation>(RESERVATION_DATA);
+    this.initDataSource();
   }
 
-  openEditReservationModal() {
-    this.dialog.open(ReservationEditComponent, {
-      data: this.selectedRow,
-      disableClose: true
-    })
+  initDataSource() {
+    this.reservationService.getReservations().pipe(
+      map((res: ReservationResponse) => {
+        this.newMessage = res.message
+        this.dataSource = res.reservations
+      })
+    ).subscribe();
+  }
+
+  openModal(reservation = {}) {
+    const dialogRef = this.dialog.open(ReservationEditComponent, {
+      minWidth: '400px',
+      minHeight: '600px',
+      hasBackdrop: true,
+      data: { title: 'Dodaj nową rezerwacje', reservation}
+    });
+  }
+
+  onDelete(id: string) {
+    if (window.confirm('Na pewno chcesz usunąc rezerwacje?')) {
+      this.reservationService.deleteReservation(id).subscribe((res) => {
+        this.initDataSource();
+        window.alert(res.message);
+      });
+    }
   }
 
 }

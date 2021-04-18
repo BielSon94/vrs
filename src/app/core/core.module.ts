@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../api/interceptor/jwt.interceptor';
 import { UsersModule } from '@features/users/users.module';
 import { UserProfileModule } from '@features/user-profile/user-profile.module';
+import { ApiModule } from '../api/api.module';
 
 
 @NgModule({
@@ -22,13 +23,10 @@ import { UserProfileModule } from '@features/user-profile/user-profile.module';
     UsersModule,
     UserProfileModule,
     SharedModule,
+    ApiModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    }
+    ApiModule
   ]
 })
 

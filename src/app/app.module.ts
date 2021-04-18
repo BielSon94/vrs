@@ -24,7 +24,7 @@ registerLocaleData(localePl);
     {
       provide: LOCALE_ID,
       useValue: 'pl'
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

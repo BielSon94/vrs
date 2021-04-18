@@ -24,14 +24,15 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.sub = this.activatedRoute.params.subscribe(params => {
+    /*this.sub = this.activatedRoute.params.subscribe(params => {
       this.userId = params['id'];
       console.log(this.userId);
       this.userService.getUser(this.userId!).pipe(
         map((user: User) => this.user = user)
       ).subscribe()
 
-    })
+    })*/
+
   }
 
 }

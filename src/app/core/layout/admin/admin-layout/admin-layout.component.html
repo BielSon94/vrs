@@ -19,7 +19,10 @@
 
     <mat-menu #accountMenu="matMenu">
         <button mat-menu-item routerLink="/">Strona Główna</button>
+        <mat-divider *ngIf="isDriver == true"></mat-divider>
+        <button mat-menu-item routerLink="/driver" *ngIf="isDriver == true">Panel Pracownika</button>
         <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/profile">Moje Konto</button>
         <button mat-menu-item>Moje bilety</button>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">Wyloguj</button>
@@ -39,6 +42,12 @@
                 <mat-list-item fxLayoutAlign="center" routerLink="users">
                     <a>Użytkownicy</a>
                 </mat-list-item>
+                <mat-list-item fxLayoutAlign="center" routerLink="routes">
+                    <a>Trasy</a>
+                </mat-list-item>
+                <mat-list-item fxLayoutAlign="center" routerLink="stops">
+                    <a>Przystanki</a>
+                </mat-list-item>
             </mat-nav-list>
 
         </div>
@@ -54,4 +63,3 @@
     </mat-sidenav-content>
 
 </mat-sidenav-container>
-

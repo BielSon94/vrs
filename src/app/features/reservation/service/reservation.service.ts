@@ -1,26 +1,46 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Reservation } from 'src/app/api/model/reservation.model';
+import { environment } from 'src/environments/environment';
+import { ReservationResponse } from '../component/reservation-list/reservation-list.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
 
-  constructor() { }
+  reservationUrl = `${environment.apiUrl}/reservations`;
 
-  getReservations() {
+  constructor(
+    private http: HttpClient,
+  ) { }
 
+  getReservations(): Observable<ReservationResponse> {
+    return this.http.get<ReservationResponse>(`${this.reservationUrl}`).pipe(
+    )
   }
 
-  getReservation() {
+  getReservation(id: string) {
+    return this.http.get<any>(`${this.reservationUrl}/${id}`).pipe(
 
+    )
   }
 
-  editReservation() {
+  editReservation(id: string, editReservation: Reservation): Observable<any> {
+    return this.http.patch(`${this.reservationUrl}/${id}`, editReservation).pipe(
 
+    )
   }
 
-  deleteReservation() {
+  deleteReservation(id: string): Observable<any> {
+    return this.http.delete(`${this.reservationUrl}/${id}`).pipe(
 
+    )
   }
 
+  createReservation(reservation: Reservation): Observable<any> {
+    return this.http.post(`${this.reservationUrl}`, reservation).pipe();
+  }
 }
