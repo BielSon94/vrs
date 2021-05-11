@@ -38,7 +38,7 @@ export interface ReservationResponse {
 export class ReservationListComponent implements OnInit {
 
   dataSource: any;
-  displayedColumns: string[] = ['id', 'from', 'to', 'status', 'user.firstName', 'user.lastName','menu'];
+  displayedColumns: string[] = ['id', 'from', 'to', 'arrival_date', 'status', 'user.firstName', 'user.lastName','menu'];
   selectedRow: Reservation;
 
 
@@ -77,6 +77,7 @@ export class ReservationListComponent implements OnInit {
 
   initDataSource() {
     this.reservationService.getReservations().pipe(
+      tap(console.log),
       map((res: ReservationResponse) => {
         this.newMessage = res.message
         this.dataSource = res.reservations

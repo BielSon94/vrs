@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RoutesService {
 
   routesUrl = `${environment.apiUrl}/routes`;
@@ -18,6 +19,24 @@ export class RoutesService {
     return this.http.get<any>(`${this.routesUrl}`).pipe(
       tap(console.log),
       map(routes => routes)
+    )
+  }
+
+  createRoute(formValue: any) {
+    return this.http.post<any>(`${this.routesUrl}`, formValue).pipe(
+
+    )
+  }
+
+  updateRoute(routeId: any, formValue: any) {
+    return this.http.patch<any>(`${this.routesUrl}/${routeId}`, formValue).pipe(
+
+      )
+  }
+
+  deleteRoute(id: number) {
+    return this.http.delete<any>(`${this.routesUrl}/${id}`).pipe(
+
     )
   }
 

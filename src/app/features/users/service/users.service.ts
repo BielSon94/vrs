@@ -23,6 +23,13 @@ export class UsersService {
 
   }
 
+  getDrivers(): Observable<User> {
+    return this.http.get<any>(`${this.userUrl}/driver`).pipe(
+      map((user: User) => user)
+    )
+
+  }
+
   getUser(id: number): Observable<User> {
     return this.http.get<any>(`${this.userUrl}/${id}`).pipe(
       map((user: User) => user)

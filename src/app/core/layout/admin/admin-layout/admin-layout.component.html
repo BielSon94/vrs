@@ -23,7 +23,7 @@
         <button mat-menu-item routerLink="/driver" *ngIf="isDriver == true">Panel Pracownika</button>
         <mat-divider></mat-divider>
         <button mat-menu-item routerLink="/profile">Moje Konto</button>
-        <button mat-menu-item>Moje bilety</button>
+        <button mat-menu-item routerLink="/profile/tickets">Moje Rezerwacje</button>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">Wyloguj</button>
     </mat-menu>

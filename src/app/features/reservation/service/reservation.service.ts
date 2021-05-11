@@ -22,6 +22,12 @@ export class ReservationService {
     )
   }
 
+  getUserTicket(id: number): Observable<any> {
+    return this.http.get<any>(`${this.reservationUrl}/tickets/${id}`).pipe(
+
+    )
+  }
+
   getReservation(id: string) {
     return this.http.get<any>(`${this.reservationUrl}/${id}`).pipe(
 

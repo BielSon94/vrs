@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from '@features/users/service/users.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { User } from 'src/app/api/model/user.model';
 import { AddUserComponent } from '../add-user/add-user.component';
 
@@ -16,7 +16,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 export class UsersListComponent implements OnInit {
 
   dataSource: any;
-  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'birthDate', 'role', 'menu'];
+  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'birthDate', 'isEmployee', 'role', 'menu'];
 
   constructor(
     private usersService: UsersService,

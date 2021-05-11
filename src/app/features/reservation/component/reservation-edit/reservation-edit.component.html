@@ -2,12 +2,15 @@
 <mat-dialog-content>
     <form [formGroup]="form">
         <mat-form-field appearance="outline">
-            <mat-label>Skąd</mat-label>
-            <input matInput placeholder="Skąd" formControlName="from">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Do</mat-label>
-            <input matInput placeholder="Do" formControlName="to">
+            <input matInput
+                   type="text"
+                   placeholder="Numer trasy"
+                   formControlName="routeId"
+                   [matAutocomplete]="travels"
+            >
+            <mat-autocomplete #travels="matAutocomplete">
+                <mat-option *ngFor="let route of routes" [value]="route.id"><b>{{ route.start.name }}</b> =><b> {{ route.end.name }}</b></mat-option>
+            </mat-autocomplete>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Status</mat-label>

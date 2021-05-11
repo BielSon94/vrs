@@ -32,8 +32,8 @@
             <mat-divider></mat-divider>
             <button class="sidenav__button" mat-button disabled>Usługi</button>
             <mat-divider></mat-divider>
-            <button class="sidenav__button" mat-button *ngIf="isAuthenticated == true">Moje Rezerwacje</button>
-            <button class="sidenav__button" mat-button *ngIf="isAuthenticated == true">Moje Konto</button>
+            <button class="sidenav__button" routerLink="/profile/tickets" mat-button *ngIf="isAuthenticated == true">Moje Rezerwacje</button>
+            <button class="sidenav__button" routerLink="/profile" mat-button *ngIf="isAuthenticated == true">Moje Konto</button>
             <mat-divider></mat-divider>
             <button class="sidenav__button" mat-button routerLink="/driver" *ngIf="isAuthenticated == true && isDriver == true">Panel Pracownika</button>
             <button class="sidenav__button" mat-button routerLink="/admin" *ngIf="isAuthenticated == true">Panel Administratora</button>
@@ -72,7 +72,7 @@
             </div>
         </mat-toolbar>
 
-        <app-hero class="herobar"></app-hero>
+        <!--<app-hero class="herobar"></app-hero>-->
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
@@ -82,7 +82,7 @@
     <button mat-menu-item routerLink="/admin" *ngIf="role == 'admin'">Panel Administratora</button>
     <mat-divider></mat-divider>
     <button mat-menu-item routerLink="/profile">Moje Konto</button>
-    <button mat-menu-item>Moje Bilety</button>
+    <button mat-menu-item routerLink="/profile/tickets">Moje Rezerwacje</button>
     <mat-divider></mat-divider>
     <button mat-menu-item (click)="logout()">Wyloguj</button>
 </mat-menu>

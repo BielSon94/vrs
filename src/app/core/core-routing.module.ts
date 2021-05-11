@@ -5,7 +5,10 @@ import { RoutesListComponent } from '@features/routes/component/routes-list/rout
 import { StopsListComponent } from '@features/stops/component/stops-list/stops-list.component';
 import { UserProfileComponent } from '@features/user-profile/component/user-profile/user-profile.component';
 import { UsersListComponent } from '@features/users/component/users-list/users-list.component';
+import { HeroComponent } from '@shared/component/hero/hero.component';
 import { PageNotFoundComponent } from '@shared/component/page-not-found/page-not-found.component';
+import { SearchComponent } from '@shared/component/search/search.component';
+import { TicketComponent } from '@shared/component/ticket/ticket.component';
 import { AuthGuard } from './guard/auth.guard';
 import { DriverGuard } from './guard/driver.guard';
 import { AdminLayoutComponent } from './layout/admin/admin-layout/admin-layout.component';
@@ -15,7 +18,29 @@ const routes: Routes = [
   {
     path: '',
     component: ClientLayoutComponent,
-    pathMatch: 'full'
+    pathMatch: 'prefix',
+    children: [
+      {
+        path: '',
+        component: HeroComponent,
+        data: {from: 'from'}
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
+        children: [
+
+        ]
+      },
+      {
+        path: 'profile/tickets',
+        component: TicketComponent
+      }
+    ]
   },
   {
     path: 'admin',
@@ -27,11 +52,6 @@ const routes: Routes = [
       { path: 'routes', component: RoutesListComponent }
     ],
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'profile',
-    component: UserProfileComponent,
-    //canActivate: [AuthGuard]
   },
   {
     path: 'reservation',

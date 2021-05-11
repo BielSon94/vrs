@@ -60,6 +60,7 @@ export class AddUserComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
+      isEmployee: [false],
       role: ['', [Validators.required]]
     })
   }
@@ -70,6 +71,7 @@ export class AddUserComponent implements OnInit {
       email: this.data.user.email,
       password: this.data.user.password,
       role: this.data.user.role,
+      isEmployee: this.data.user.isEmployee,
       lastName: this.data.user.lastName,
       birthDate: this.data.user.birthDate
     })

@@ -22,9 +22,11 @@
                 <mat-label>Rola</mat-label>
                 <mat-select formControlName="role">
                     <mat-option value="user">User</mat-option>
+                    <mat-option value="employee" *ngIf="addUserForm.controls.isEmployee.value == true">Kierowca</mat-option>
                     <mat-option value="admin">Admin</mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-checkbox matInput formControlName="isEmployee" style="margin-bottom: 16px;">Kierowca</mat-checkbox>
             <mat-form-field appearance="outline">
                 <mat-label>Data urodzenia</mat-label>
                 <input matInput formControlName="birthDate" [matDatepicker]="birthDate">

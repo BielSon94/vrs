@@ -29,11 +29,16 @@ export class StopsListComponent implements OnInit {
   }
 
   openModal(stop = {}) {
-    const dialogRef = this.dialog.open(AddStopComponent, {
+    let dialogRef = this.dialog.open(AddStopComponent, {
       minWidth: '400px',
       hasBackdrop: true,
       data: { title: 'Dodaj nowy przystanek', stop}
     });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      setTimeout(()=>this.initDataSource(), 1500)
+    });
+
   }
 
   openSnackBar(message: string, action: string = "Zamknij") {
@@ -46,7 +51,6 @@ export class StopsListComponent implements OnInit {
 
   initDataSource() {
     this.stopsService.getStops().pipe(
-      tap(console.log),
       map((response: GetStopResponse) => {
         this.dataSource = response.data,
         this.message = response.message

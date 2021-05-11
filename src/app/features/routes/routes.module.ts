@@ -5,6 +5,8 @@ import { SharedModule } from '@shared/shared.module';
 import { RoutesRoutingModule } from './routes-routing.module';
 import { RoutesListComponent } from './component/routes-list/routes-list.component';
 import { AddRouteComponent } from './component/add-route/add-route.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 
@@ -12,8 +14,11 @@ import { AddRouteComponent } from './component/add-route/add-route.component';
   declarations: [LayoutComponent, RoutesListComponent, AddRouteComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     RoutesRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class RoutesModule { }

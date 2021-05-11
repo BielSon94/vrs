@@ -21,12 +21,15 @@ export class StopsService {
 
   createStop(stop: Stop): Observable<Stop> {
     return this.http.post<Stop>(`${this.stopUrl}`, stop).pipe(
+  )}
 
+  updateStop(id: number, stop: Stop) {
+    return this.http.patch(`${this.stopUrl}/${id}`, stop).pipe(
   )}
 
   deleteStop(id: number) {
-    return this.http.delete<any>(`${this.stopUrl}/id`).pipe(
+    return this.http.delete<any>(`${this.stopUrl}/${id}`).pipe(
 
-    )}
+  )}
 
 }

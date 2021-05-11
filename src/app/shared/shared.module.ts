@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 //===== ANGULAR MATERIAL =====//
 
@@ -47,11 +47,15 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { HeroComponent } from './component/hero/hero.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from './component/search/search.component';
+import { ReservationService } from '@features/reservation/service/reservation.service';
+import { TicketComponent } from './component/ticket/ticket.component';
 
 //===========================//
 
 @NgModule({
-  declarations: [PageNotFoundComponent, LogoComponent, NavbarComponent, HeroComponent],
+  declarations: [PageNotFoundComponent, LogoComponent, NavbarComponent, HeroComponent, SearchComponent, TicketComponent],
   imports: [
     CommonModule,
     A11yModule,
@@ -93,7 +97,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatOptionModule,
     OverlayModule,
     PortalModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     MatMenuModule,
@@ -118,6 +124,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatOptionModule,
     MatSnackBarModule,
     MatAutocompleteModule
+  ],
+  providers: [
+    DatePipe
   ]
 })
 

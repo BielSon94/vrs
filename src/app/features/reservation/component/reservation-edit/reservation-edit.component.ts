@@ -3,9 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogClose, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ReservationService } from '@features/reservation/service/reservation.service';
+import { RoutesService } from '@features/routes/service/routes.service';
+import { StopsService } from '@features/stops/service/stops.service';
 import { UsersService } from '@features/users/service/users.service';
 import { filter, map, tap } from 'rxjs/operators';
 import { Reservation, ReservationStatus } from 'src/app/api/model/reservation.model';
+import { GetStopResponse, Stop } from 'src/app/api/model/stops.model';
 import { User } from 'src/app/api/model/user.model';
 
 enum Action {
@@ -25,6 +28,7 @@ export class ReservationEditComponent implements OnInit {
   form!: FormGroup;
   actionTODO = Action.NEW;
   options!: any;
+  routes!: any;
   //options!: Array<User[]>;
   //options = this.getUsers();
 
@@ -35,12 +39,20 @@ export class ReservationEditComponent implements OnInit {
     ).subscribe();
   }
 
+  getRoutes() {
+    return this.routesService.getRoutes().pipe(
+      tap(console.log),
+      map((response: any) => this.routes = response)
+    ).subscribe();
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private usersService: UsersService,
     private reservationService: ReservationService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private routesService: RoutesService
   ) {}
 
   ngOnInit(): void {
@@ -51,14 +63,14 @@ export class ReservationEditComponent implements OnInit {
       this.data.title = "Edytuj rezerwacje";
       this.pathFormData();
     }
+    this.getRoutes();
     this.getUserToForm();
   }
 
   private buildForm() {
     this.form = this.formBuilder.group(
       {
-        from: ['', [Validators.required]],
-        to: ['', [Validators.required]],
+        routeId: [, [Validators.required]],
         status: [ReservationStatus.NEW, ],
         userId: [, [Validators.required]],
       }
@@ -92,8 +104,7 @@ export class ReservationEditComponent implements OnInit {
 
   private pathFormData(): void {
     this.form.patchValue({
-      from: this.data.reservation.from,
-      to: this.data.reservation.to,
+      routeId: this.data.reservation.route.id,
       status: this.data.reservation.status,
       userId: Number(this.data.reservation.user.id)
     })

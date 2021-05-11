@@ -30,6 +30,11 @@
         <td mat-cell *matCellDef="let element"> {{ element.birthDate | date: 'dd-MM-YYYY'}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="isEmployee">
+        <th mat-header-cell *matHeaderCellDef> Kierowca </th>
+        <td mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.isEmployee" disabled></mat-checkbox></td>
+    </ng-container>
+
     <ng-container matColumnDef="role">
         <th mat-header-cell *matHeaderCellDef> Rola </th>
         <td mat-cell *matCellDef="let element"> {{ element.role }} </td>
