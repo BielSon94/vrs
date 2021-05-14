@@ -32,9 +32,6 @@ const routes: Routes = [
       {
         path: 'profile',
         component: UserProfileComponent,
-        children: [
-
-        ]
       },
       {
         path: 'profile/tickets',
